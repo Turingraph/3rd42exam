@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/31 16:45:31 by phsottat          #+#    #+#             */
-/*   Updated: 2026/10/31 18:56:10 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/10/31 19:21:38 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	base_to_int(const char *base, char coef, bool *is_int)
 	if (base == NULL || coef == '\0' || coef == '+' || coef == '-')
 	{
 		*is_int = false;
-		return (0);
+		return (-1);
 	}
 	i = 0;
 	while (base[i] != '\0' && base[i] != coef)
@@ -27,7 +27,7 @@ static int	base_to_int(const char *base, char coef, bool *is_int)
 	if (base[i] != coef)
 	{
 		*is_int = false;
-		return (0);
+		return (-1);
 	}
 	return (i);
 }
@@ -40,9 +40,9 @@ static int	skip_zero(size_t *index, const char *str,
 
 	sign = 1;
 	i = 0;
-	while (i < max_digits && str[i] == *base)
+	while ((i < max_digits || max_digits == 0) && str[i] == *base)
 		i += 1;
-	if (i == max_digits)
+	if (i == max_digits && max_digits > 0)
 		return (0);
 	if (str[i] == '+' || str[i] == '-')
 		i += 1;
@@ -61,11 +61,12 @@ int	str_to_int(const char *str, const char *base, bool *is_int,
 
 	if (str == NULL || base == NULL || is_int == NULL
 		|| *str == '\0' || *base == '\0')
-		return (0);
+		return (-1);
 	i = 0;
 	y = 0;
 	sign = skip_zero(&i, str, max_digits, base);
-	while (i < max_digits && str[i] != '\0' && *is_int == true)
+	while ((i < max_digits || max_digits == 0)
+		&& str[i] != '\0' && *is_int == true)
 	{
 		y += base_to_int(base, str[i], is_int);
 		y *= str_length(base);
@@ -74,7 +75,8 @@ int	str_to_int(const char *str, const char *base, bool *is_int,
 		i += 1;
 	}
 	y /= str_length(base);
-	if ((y > 2147483647 && sign > 0) || (y < -2147483648 && sign < 0))
+	if ((y > 2147483647 && sign > 0) || *is_int == false
+		|| (y < -2147483648 && sign < 0))
 	{
 		*is_int = false;
 		return (-1);
