@@ -44,10 +44,10 @@ static int	skip_zero(size_t *index, const char *str,
 		i += 1;
 	if (i == max_digits && max_digits > 0)
 		return (0);
-	if (str[i] == '+' || str[i] == '-')
-		i += 1;
 	if (str[i] == '-')
 		sign = -1;
+	if (str[i] == '+' || str[i] == '-')
+		i += 1;
 	*index = i;
 	return (sign);
 }
@@ -61,7 +61,11 @@ int	str_to_int(const char *str, const char *base, bool *is_int,
 
 	if (str == NULL || base == NULL || is_int == NULL
 		|| *str == '\0' || *base == '\0')
+	{
+		if (is_int != NULL)
+			*is_int = false;
 		return (-1);
+	}
 	i = 0;
 	y = 0;
 	sign = skip_zero(&i, str, max_digits, base);
