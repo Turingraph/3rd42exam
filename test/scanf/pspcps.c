@@ -17,9 +17,9 @@ int	main(void)
 	size_t	length = 3;
 	size_t	y = 0;
 	char	**str_input = clone_strarr(100,  length, NULL, NULL, NULL);
-	char	**str_expect = clone_strarr(100, length, "Mumu", "Cheche", "Tata");
+	char	**str_expect = clone_strarr(100, length, "Mumu", "C", "heche");
 
-	scanf("%s %s %s", str_input[0], str_input[1], str_input[2]);
+	ft_scanf("%s %c %s", str_input[0], str_input[1], str_input[2]);
 	write_strargs(length, str_input[0], str_input[1], str_input[2]);
 	y = assert_strarr((const char **)str_expect, (const char **)str_input, length);
 	write_score(y, length);
@@ -29,6 +29,6 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/scanf.out
+valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/pspcps.out
 
 */
