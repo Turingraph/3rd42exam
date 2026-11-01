@@ -18,11 +18,11 @@ int	main(void)
 	char	*arr[] = {
 		"Yoasobi", "Yorushika", "Zutomayo", "Yonezu", "Radiohead", "Nujabes"
 	};
-	size_t	maxx = 6;
+	size_t	length = 6;
 	size_t	i = 0;
 	size_t	score = 0;
 
-	while (i < maxx)
+	while (i < length)
 	{
 		if (str_length(arr[i]) == expected_answer[i])
 			score += 1;
@@ -34,11 +34,7 @@ int	main(void)
 		}
 		i += 1;
 	}
-	write(1, "score: ", 7);
-	write_int(score, "0123456789", 1);
-	write(1, " / ", 3);
-	write_int(maxx, "0123456789", 1);
-	write(1, "\n", 1);
+	write_score(score, length);
 	return (0);
 }
 

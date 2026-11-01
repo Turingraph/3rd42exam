@@ -34,17 +34,3 @@ void	ft_scanf(const char *str, ...)
 	}
 	va_end(args);
 }
-
-void	set_str(char *dst, size_t length, char c)
-{
-	size_t	i;
-
-	if (dst == NULL || length == 0)
-		return ;
-	i = 0;
-	while (i < length)
-	{
-		dst[i] = c;
-		i += 1;
-	}
-}

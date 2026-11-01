@@ -132,3 +132,12 @@ size_t	write_int(int src, const char *base, int fd)
 	}
 	return (write_int_helper(src_long, base, fd));
 }
+
+void	write_score(size_t score, size_t max_score)
+{
+	write(1, "score: ", 7);
+	write_int(score, "0123456789", 1);
+	write(1, " / ", 3);
+	write_int(max_score, "0123456789", 1);
+	write(1, "\n", 1);
+}

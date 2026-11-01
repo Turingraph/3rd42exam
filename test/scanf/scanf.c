@@ -14,26 +14,21 @@
 
 int	main(void)
 {
-	char	mumu[100];
-	char	cheche[100];
-	char	tata[100];
+	size_t	length = 3;
+	size_t	y = 0;
+	char	**str_input = clone_strarr(100,  length, NULL, NULL, NULL);
+	char	**str_expect = clone_strarr(100, length, "Mumu", "Cheche", "Tata");
 
-	set_str(mumu, 100, '\0');
-	set_str(cheche, 100, '\0');
-	set_str(tata, 100, '\0');
-	scanf("%s %c %s", mumu, cheche, tata);
-	ft_printf(3, mumu, cheche, tata);
-	if (assert_str("mumu", mumu) == true)
-		write(1, "01: YES\n", 8);
-	else
-		write(1, "01: NO\n", 7);
-	if (assert_str("c", cheche) == true)
-		write(1, "02: YES\n", 8);
-	else
-		write(1, "02: NO\n", 7);
-	if (assert_str("tata", tata) == true)
-		write(1, "03: YES\n", 8);
-	else
-		write(1, "03: NO\n", 7);
+	scanf("%s %s %s", str_input[0], str_input[1], str_input[2]);
+	write_strargs(length, str_input[0], str_input[1], str_input[2]);
+	y = assert_strarr((const char **)str_expect, (const char **)str_input, length);
+	write_score(y, length);
+	free_strarr(str_input, length);
+	free_strarr(str_expect, length);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/scanf.out
+
+*/

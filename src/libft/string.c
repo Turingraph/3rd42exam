@@ -24,7 +24,7 @@ size_t	str_length(const char *str)
 	return (i);
 }
 
-void	write_strarr(size_t length, ...)
+void	write_strargs(size_t length, ...)
 {
 	size_t	i;
 	va_list	args;
@@ -45,17 +45,83 @@ void	write_strarr(size_t length, ...)
 	va_end(args);
 }
 
-bool	assert_str(const char *str1, const char *str2)
+void	set_str(char *dst, size_t length, char c)
 {
 	size_t	i;
 
-	if (str1 == NULL || str2 == NULL)
-		return (false);
+	if (dst == NULL || length == 0)
+		return ;
 	i = 0;
-	while (str1[i] != '\0' && str2[i] == str1[i])
+	while (i < length)
+	{
+		dst[i] = c;
 		i += 1;
-	if (str1[i] != str2[i])
-		return (false);
-	return (true);
+	}
 }
 
+char	*clone_str(const char *src, size_t max_length)
+{
+	char	*dst;
+	size_t	i;
+
+	dst = malloc(sizeof(char) * (max_length + 1));
+	if (dst == NULL)
+		return (NULL);
+	i = 0;
+	while (src != NULL && src[i] != '\0' && i < max_length)
+	{
+		dst[i] = src[i];
+		i += 1;
+	}
+	while (i < max_length)
+	{
+		dst[i] = '\0';
+		i += 1;
+	}
+	return (dst);
+}
+
+void	free_strarr(char **dst, size_t length)
+{
+	size_t	i;
+
+	if (dst == NULL)
+		return ;
+	i = 0;
+	while (i < length)
+	{
+		free(dst[i]);
+		i += 1;
+	}
+	free(dst);
+}
+
+char	**clone_strarr(size_t max_length, size_t arr_length, ...)
+{
+	char	*src;
+	char	**dst;
+	va_list	args;
+	size_t	i;
+
+	if (arr_length == 0)
+		return (NULL);
+	dst = malloc(sizeof(char *) * (arr_length + 1));
+	if (dst == NULL)
+		return (NULL);
+	dst[arr_length] = NULL;
+	va_start(args, arr_length);
+	i = 0;
+	while (i < arr_length)
+	{
+		src = va_arg(args, char *);
+		dst[i] = clone_str((const char *)src, max_length);
+		if (dst[i] == NULL)
+		{
+			free_strarr(dst, i);
+			return (NULL);
+		}
+		i += 1;
+	}
+	va_end(args);
+	return (dst);
+}

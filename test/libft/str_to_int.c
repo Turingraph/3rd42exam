@@ -23,12 +23,12 @@ int	main(void)
 		"10101", "-2", "2147483647", "-2147483648", "0", "404", "1", "2", "-1",
         "84237", "67"
 	};
-	size_t	maxx = 11;
+	size_t	length = 11;
 	size_t	i = 0;
 	size_t	score = 0;
     bool    is_bool;
 
-	while (i < maxx)
+	while (i < length)
 	{
         is_bool = true;
 		if (str_to_int(arr[i], "0123456789", &is_bool, 0) == -1 && is_bool == false)
@@ -44,7 +44,7 @@ int	main(void)
 		i += 1;
 	}
     i = 0;
-	while (i < maxx)
+	while (i < length)
 	{
         is_bool = true;
 		if (str_to_int(arr2[i], "0123456789", &is_bool, 0) == expected_answer[i] && is_bool == true)
@@ -59,11 +59,7 @@ int	main(void)
 		}
 		i += 1;
 	}
-	write(1, "score: ", 7);
-	write_int(score, "0123456789", 1);
-	write(1, " / ", 3);
-	write_int(maxx * 2, "0123456789", 1);
-	write(1, "\n", 1);
+	write_score(score, length * 2);
 	return (0);
 }
 
