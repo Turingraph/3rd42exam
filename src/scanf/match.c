@@ -50,6 +50,7 @@ void	match_int(FILE *stream, int *cc, int *dst)
 	is_int = true;
 	y = 0;
 	if (is_continue(*cc) == false
+		|| is_a_in_str(*cc, "0123456789+-") == false
 		|| dst == NULL)
 		return ;
 	if (is_continue(*cc) && *cc == '-')
