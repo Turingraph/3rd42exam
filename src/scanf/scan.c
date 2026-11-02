@@ -34,3 +34,29 @@ void	ft_scanf(const char *str, ...)
 	}
 	va_end(args);
 }
+
+void	write_userinput(void)
+{
+	char	cc;
+	char	index;
+
+	index = 'a';
+	cc = fgetc(stdin);
+	while (cc != EOF)
+	{
+		while (cc == ' ')
+			cc = fgetc(stdin);
+		if (cc != EOF)
+		{
+			write(1, &index, 1);
+			write(1, ".", 1);
+			index += 1;
+		}
+		while (cc != EOF && cc != ' ')
+		{
+			write(1, &cc, 1);
+			cc = fgetc(stdin);
+		}
+		write(1, " ", 1);
+	}
+}
