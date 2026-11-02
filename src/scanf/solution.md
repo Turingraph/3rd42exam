@@ -209,3 +209,42 @@ int	ft_scanf(const char *str, ...)
 	return ((int)i);
 }
 ```
+
+Things to be considered
+1.	Do not deal with Integer-Overflow and other undefined behavior.
+
+```
+bool	match_int(FILE *stream, int *cc, int *dst)
+{
+...
+long int	y;
+...
+while (y < 21474836480 && ...)
+...
+y /= str_length("0123456789");
+if (sign * y > -2147483648 && sign * y < 2147483647)
+	*dst = (int)(y * sign);
+return (true);
+}
+```
+
+2.	You don't have to deal with `scanf("Subscript_to_my_channel %d");`
+3.	You have to deal with negative and positive sign `"-+"` as separatator of `%d` format.
+4.	You have to skips the `\n` (new line) as same as ` ` (space)
+
+```
+while (cc == ' ' || cc == '\n')
+	cc = fgetc(stdin);
+```
+
+5.	The when user type the last `\n` then `(cc = fget(stdin)) == EOF` is true.
+6.	`ft_scanf` return the number of all successful matching and it will stop working once it match all of the input and/or it fail to matching the input.
+
+ChatGPT recommendation
+1.	`fgets(FILE *stream)` return `int`
+2.	pass `func(va_list *)` instead of `func(va_list)` for the sake of compatibility.
+3.	%c does not skip whitespace, the %c get whitespace, newline, and every other char. The whitespace-skipping behavior belongs to %s and %d, not %c.
+4.	%s must terminate, you forget `dst[i] = '\0'`
+5.	Your integer parser accepts a sign without digits
+6.	don't exclude excludes INT_MIN and INT_MAX for %d.
+7.	Use isspace() instead of checking only space and newline
