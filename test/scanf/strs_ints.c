@@ -9,12 +9,16 @@ int	main(void)
 	int		*int_expect = clone_intarr(length_of_int, -6498,	-121073,	56,	3940,	0);
 	char	**str_input = clone_strarr(100,  length_of_str, NULL, NULL);
 	char	**str_expect = clone_strarr(100, length_of_str, "Mumu", "Tata");
+	int		result_input;
+	int		result_expect = 7;
 
-	ft_scanf("%s %s %d %d %d %d %d", str_input[0], str_input[1],
+	result_input = ft_scanf("%s %s %d %d %d %d %d", str_input[0], str_input[1],
 		int_input, int_input + 1, int_input + 2, int_input + 3, int_input + 4);
 	y = assert_strarr((const char **)str_expect, (const char **)str_input, length_of_str);
-	y += assert_int((const int *)int_input, (const int *)int_expect, length_of_int);
+	y += assert_intarr((const int *)int_input, (const int *)int_expect, length_of_int);
 	write_score(y, length_of_str + length_of_int);
+	if (assert_int(result_expect, result_input, 0))
+		write(1, "Output is correct\n", 18);
 	free_strarr(str_input, length_of_str);
 	free_strarr(str_expect, length_of_str);
 	free(int_expect);

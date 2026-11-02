@@ -23,11 +23,11 @@ int 	type_from_args(const char *str, size_t ith);
 
 // match.c
 
-void	match_args(const char *str, size_t ith, va_list args, int *cc);
+bool	match_args(const char *str, size_t ith, va_list args, int *cc);
 
 // scan.c
 
-void	ft_scanf(const char *str, ...);
+int		ft_scanf(const char *str, ...);
 void	set_str(char *dst, size_t length, char c);
 void	write_userinput(void);
 

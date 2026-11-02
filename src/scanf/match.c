@@ -12,34 +12,32 @@
 
 #include "scanf.h"
 
-void	match_char(FILE *stream, int *cc, char *dst)
+bool	match_char(FILE *stream, int *cc, char *dst)
 {
-	if (*cc == EOF)
-		return ;
-	if (dst == NULL)
-		return ;
+	if (*cc == EOF || is_a_in_str(*cc, " \n") == true || dst == NULL)
+		return (false);
 	dst[0] = (char)(*cc);
 	*cc = fgetc(stream);
+	return (true);
 }
 
-void	match_str(FILE *stream, int *cc, char *dst)
+bool	match_str(FILE *stream, int *cc, char *dst)
 {
 	size_t	j;
 
-	if (*cc == EOF)
-		return ;
-	if (dst == NULL)
-		return ;
+	if (*cc == EOF || is_a_in_str(*cc, " \n") == true || dst == NULL)
+		return (false);
 	j = 0;
-	while (*cc != EOF && *cc != ' ' && *cc != '\n')
+	while (*cc != EOF && is_a_in_str(*cc, " \n") == false)
 	{
 		dst[j] = (char)(*cc);
 		*cc = fgetc(stream);
 		j += 1;
 	}
+	return (true);
 }
 
-void	match_int(FILE *stream, int *cc, int *dst)
+bool	match_int(FILE *stream, int *cc, int *dst)
 {
 	bool		is_int;
 	long int	y;
@@ -52,7 +50,7 @@ void	match_int(FILE *stream, int *cc, int *dst)
 	if (*cc == EOF
 		|| is_a_in_str(*cc, "0123456789+-") == false
 		|| dst == NULL)
-		return ;
+		return (false);
 	if (*cc == '-')
 		sign = -1;
 	if (*cc == '-' || *cc == '+')
@@ -73,30 +71,34 @@ void	match_int(FILE *stream, int *cc, int *dst)
 	y /= str_length("0123456789");
 	if (sign * y > -2147483648 && sign * y < 2147483647)
 		*dst = (int)(y * sign);
+	return (true);
 }
 
-void	match_args(const char *str, size_t ith, va_list args, int *cc)
+bool	match_args(const char *str, size_t ith, va_list args, int *cc)
 {
 	int		y;
 	char	*dst;
 	int		*dst_int;
+	bool	success;
 
+	success = false;
 	y = type_from_args(str, ith);
 	if (y == -1)
-		return ;
+		return (success);
 	if (str[y + 1] == 's')
 	{
 		dst = va_arg(args, char *);
-		match_str(stdin, cc, dst);
+		success = match_str(stdin, cc, dst);
 	}
 	else if (str[y + 1] == 'c')
 	{
 		dst = va_arg(args, char *);
-		match_char(stdin, cc, dst);
+		success = match_char(stdin, cc, dst);
 	}
 	else if (str[y + 1] == 'd')
 	{
 		dst_int = va_arg(args, int *);
-		match_int(stdin, cc, dst_int);
+		success = match_int(stdin, cc, dst_int);
 	}
+	return (success);
 }

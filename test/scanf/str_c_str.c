@@ -18,11 +18,15 @@ int	main(void)
 	size_t	y = 0;
 	char	**str_input = clone_strarr(100,  length, NULL, NULL, NULL);
 	char	**str_expect = clone_strarr(100, length, "Mumu", "C", "heche");
+	int		result_input;
+	int		result_expect = 3;
 
-	ft_scanf("%s %c %s", str_input[0], str_input[1], str_input[2]);
+	result_input = scanf("%s %c %s", str_input[0], str_input[1], str_input[2]);
 	write_strargs(length, str_input[0], str_input[1], str_input[2]);
 	y = assert_strarr((const char **)str_expect, (const char **)str_input, length);
 	write_score(y, length);
+	if (assert_int(result_expect, result_input, 0))
+		write(1, "Output is correct\n", 18);
 	free_strarr(str_input, length);
 	free_strarr(str_expect, length);
 	return (0);

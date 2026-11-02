@@ -12,27 +12,33 @@
 
 #include "scanf.h"
 
-void	ft_scanf(const char *str, ...)
+int	ft_scanf(const char *str, ...)
 {
 	int		cc;
 	va_list	args;
 	size_t	i;
 	size_t	length;
+	bool	status;
 
 	length = count_args(str);
 	if (length == 0)
-		return ;
+		return (0);
 	i = 0;
 	va_start(args, str);
 	cc = fgetc(stdin);
-	while (cc != EOF && i < length)
+	status = true;
+	while (cc != EOF && i < length && status == true)
 	{
 		while (cc == ' ' || cc == '\n')
 			cc = fgetc(stdin);
-		match_args(str, i, args, &cc);
-		i += 1;
+		status = match_args(str, i, args, &cc);
+		if (status == true)
+			i += 1;
 	}
 	va_end(args);
+	if (ferror(stdin) != 0 || (i == 0 && cc == EOF))
+		return (EOF);
+	return ((int)i);
 }
 
 void	write_userinput(void)

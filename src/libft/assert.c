@@ -46,7 +46,21 @@ size_t	assert_strarr(const char **str1, const char **str2, size_t length)
 	return (y);
 }
 
-size_t	assert_int(const int *int1, const int *int2, size_t length)
+bool	assert_int(int a, int b, size_t c)
+{
+	if (a == b)
+		return (true);
+	write(1, ">>> ", 4);
+	write_int(c, "0123456789", 1);
+	write(1, "\t", 1);
+	write_int(a, "0123456789", 1);
+	write(1, " != ", 5);
+	write_int(b, "0123456789", 1);
+	write(1, "\n", 1);
+	return (false);
+}
+
+size_t	assert_intarr(const int *int1, const int *int2, size_t length)
 {
 	size_t	i;
 	size_t	y;
@@ -57,18 +71,8 @@ size_t	assert_int(const int *int1, const int *int2, size_t length)
 	i = 0;
 	while (i < length)
 	{
-		if (int1[i] == int2[i])
+		if (assert_int(int1[i], int2[i], i))
 			y += 1;
-		else
-		{
-			write(1, ">>> ", 4);
-			write_int(i, "0123456789", 1);
-			write(1, "\t", 1);
-			write_int(int1[i], "0123456789", 1);
-			write(1, " != ", 5);
-			write_int(int2[i], "0123456789", 1);
-			write(1, "\n", 1);
-		}
 		i += 1;
 	}
 	return (y);

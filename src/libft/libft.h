@@ -23,7 +23,8 @@
 
 bool	assert_str(const char *str1, const char *str2);
 size_t	assert_strarr(const char **str1, const char **str2, size_t length);
-size_t	assert_int(const int *int1, const int *int2, size_t length);
+bool	assert_int(int a, int b, size_t c);
+size_t	assert_intarr(const int *int1, const int *int2, size_t length);
 
 // clone.c
 
