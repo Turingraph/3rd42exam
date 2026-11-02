@@ -25,9 +25,9 @@ void	ft_scanf(const char *str, ...)
 	i = 0;
 	va_start(args, str);
 	cc = fgetc(stdin);
-	while (is_continue(cc) && i < length)
+	while (cc != EOF && i < length)
 	{
-		while (cc == ' ')
+		while (cc == ' ' || cc == '\n')
 			cc = fgetc(stdin);
 		match_args(str, i, args, &cc);
 		i += 1;

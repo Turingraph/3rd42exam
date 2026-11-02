@@ -14,7 +14,7 @@
 
 void	match_char(FILE *stream, int *cc, char *dst)
 {
-	if (is_continue(*cc) == false)
+	if (*cc == EOF)
 		return ;
 	if (dst == NULL)
 		return ;
@@ -26,12 +26,12 @@ void	match_str(FILE *stream, int *cc, char *dst)
 {
 	size_t	j;
 
-	if (is_continue(*cc) == false)
+	if (*cc == EOF)
 		return ;
 	if (dst == NULL)
 		return ;
 	j = 0;
-	while (is_continue(*cc) && *cc != ' ')
+	while (*cc != EOF && *cc != ' ' && *cc != '\n')
 	{
 		dst[j] = (char)(*cc);
 		*cc = fgetc(stream);
@@ -49,15 +49,15 @@ void	match_int(FILE *stream, int *cc, int *dst)
 	sign = 1;
 	is_int = true;
 	y = 0;
-	if (is_continue(*cc) == false
+	if (*cc == EOF
 		|| is_a_in_str(*cc, "0123456789+-") == false
 		|| dst == NULL)
 		return ;
-	if (is_continue(*cc) && *cc == '-')
+	if (*cc == '-')
 		sign = -1;
-	if (is_continue(*cc) && (*cc == '-' || *cc == '+'))
+	if (*cc == '-' || *cc == '+')
 		*cc = fgetc(stream);
-	while (is_continue(*cc) && *cc != ' ' && y < 21474836480
+	while (*cc != EOF && *cc != ' ' && y < 21474836480
 		&& is_int == true)
 	{
 		coef = base_to_int("0123456789", *cc);

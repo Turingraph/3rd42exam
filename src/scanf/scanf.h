@@ -18,7 +18,6 @@
 
 // count.c
 
-bool	is_continue(int cc);
 size_t	count_args(const char *str);
 int 	type_from_args(const char *str, size_t ith);
 

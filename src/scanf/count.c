@@ -12,13 +12,6 @@
 
 #include "scanf.h"
 
-bool	is_continue(int cc)
-{
-	if (cc == '\n' || cc == EOF)
-		return (false);
-	return (true);
-}
-
 size_t	count_args(const char *str)
 {
 	size_t	i;
