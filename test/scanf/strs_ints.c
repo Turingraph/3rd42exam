@@ -23,5 +23,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/pspspdpd.out
+valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/strs_ints.out
 */

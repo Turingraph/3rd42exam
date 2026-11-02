@@ -29,6 +29,6 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/pspsps.out
+valgrind --leak-check=full --show-leak-kinds=all ./test/out/scanf/strs.out
 
 */
