@@ -44,12 +44,18 @@ void	match_int(FILE *stream, int *cc, int *dst)
 	bool		is_int;
 	long int	y;
 	int			coef;
+	long int	sign;
 
+	sign = 1;
 	is_int = true;
 	y = 0;
 	if (is_continue(*cc) == false
 		|| dst == NULL)
 		return ;
+	if (is_continue(*cc) && *cc == '-')
+		sign = -1;
+	if (is_continue(*cc) && (*cc == '-' || *cc == '+'))
+		*cc = fgetc(stream);
 	while (is_continue(*cc) && *cc != ' ' && y < 21474836480
 		&& is_int == true)
 	{
@@ -64,8 +70,8 @@ void	match_int(FILE *stream, int *cc, int *dst)
 		}
 	}
 	y /= str_length("0123456789");
-	if (y < 21474836480)
-		*dst = (int)y;
+	if (sign * y > -2147483648 && sign * y < 2147483647)
+		*dst = (int)(y * sign);
 }
 
 void	match_args(const char *str, size_t ith, va_list args, int *cc)

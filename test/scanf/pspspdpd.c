@@ -6,7 +6,7 @@ int	main(void)
 	size_t	length_of_int = 5;
 	size_t	y = 0;
 	int		*int_input = clone_intarr(length_of_int, -404, -404, -404, -404, -404);
-	int		*int_expect = clone_intarr(length_of_int, 6498,	121073,	56,	3940,	0);
+	int		*int_expect = clone_intarr(length_of_int, -6498,	-121073,	56,	3940,	0);
 	char	**str_input = clone_strarr(100,  length_of_str, NULL, NULL);
 	char	**str_expect = clone_strarr(100, length_of_str, "Mumu", "Tata");
 
