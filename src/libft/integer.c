@@ -12,23 +12,17 @@
 
 #include "libft.h"
 
-static int	base_to_int(const char *base, char coef, bool *is_int)
+int	base_to_int(const char *base, char coef)
 {
 	size_t	i;
 
-	if (base == NULL || coef == '\0' || coef == '+' || coef == '-')
-	{
-		*is_int = false;
+	if (base == NULL || coef == '\0' || is_a_in_str(coef, "-+") == true)
 		return (-1);
-	}
 	i = 0;
 	while (base[i] != '\0' && base[i] != coef)
 		i += 1;
 	if (base[i] != coef)
-	{
-		*is_int = false;
 		return (-1);
-	}
 	return (i);
 }
 
@@ -46,10 +40,22 @@ static int	skip_zero(size_t *index, const char *str,
 		return (0);
 	if (str[i] == '-')
 		sign = -1;
-	if (str[i] == '+' || str[i] == '-')
+	if (is_a_in_str(str[i], "-+") == true)
 		i += 1;
 	*index = i;
 	return (sign);
+}
+
+static int	int_to_int_output(long int y, const char *base, int sign, bool *is_int)
+{
+	y /= str_length(base);
+	if ((y > 2147483647 && sign > 0) || *is_int == false
+		|| (y < -2147483648 && sign < 0))
+	{
+		*is_int = false;
+		return (-1);
+	}
+	return ((int)(y * sign));
 }
 
 int	str_to_int(const char *str, const char *base, bool *is_int,
@@ -58,6 +64,7 @@ int	str_to_int(const char *str, const char *base, bool *is_int,
 	size_t		i;
 	long int	y;
 	int			sign;
+	long int	coef;
 
 	if (str == NULL || base == NULL || is_int == NULL
 		|| *str == '\0' || *base == '\0')
@@ -72,20 +79,20 @@ int	str_to_int(const char *str, const char *base, bool *is_int,
 	while ((i < max_digits || max_digits == 0)
 		&& str[i] != '\0' && *is_int == true)
 	{
-		y += base_to_int(base, str[i], is_int);
-		y *= str_length(base);
-		if (y / str_length(base) > 2147483648)
+
+		coef = base_to_int(base, str[i]);
+		if (coef >= 0)
+		{
+			y += coef;
+			y *= str_length(base);
+			if (y / str_length(base) > 2147483648)
+				*is_int = false;
+		}
+		else
 			*is_int = false;
 		i += 1;
 	}
-	y /= str_length(base);
-	if ((y > 2147483647 && sign > 0) || *is_int == false
-		|| (y < -2147483648 && sign < 0))
-	{
-		*is_int = false;
-		return (-1);
-	}
-	return ((int)(y * sign));
+	return (int_to_int_output(y, base, sign, is_int));
 }
 
 static size_t	write_int_helper(long int src_long, const char *base, int fd)

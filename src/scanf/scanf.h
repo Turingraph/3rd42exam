@@ -19,15 +19,11 @@
 // count.c
 
 bool	is_continue(int cc);
-size_t	args_length(const char *str);
 size_t	count_args(const char *str);
 int 	type_from_args(const char *str, size_t ith);
 
 // match.c
 
-void	match_char(FILE *stream, int *cc, char *dst);
-void	match_str(FILE *stream, int *cc, char *dst);
-void	match_int(FILE *stream, int *cc, char *dst);
 void	match_args(const char *str, size_t ith, va_list args, int *cc);
 
 // scan.c

@@ -19,24 +19,6 @@ bool	is_continue(int cc)
 	return (true);
 }
 
-size_t	args_length(const char *str)
-{
-	size_t	i;
-	size_t	y;
-
-	if (str == NULL)
-		return (0);
-	y = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '%' && (str[i] == 's' || str[i] == 'c'))
-			y += 1;
-		i += 1;
-	}
-	return (y);
-}
-
 size_t	count_args(const char *str)
 {
 	size_t	i;
@@ -49,7 +31,7 @@ size_t	count_args(const char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '%'
-			&& (str[i + 1] == 's' || str[i + 1] == 'c'))
+			&& is_a_in_str(str[i + 1], "scd") == true)
 			y += 1;
 		i += 1;
 	}
@@ -68,7 +50,7 @@ int	type_from_args(const char *str, size_t ith)
 	while (str[i] != '\0' && y < (int)ith)
 	{
 		if (str[i] == '%'
-			&& (str[i + 1] == 's' || str[i + 1] == 'c'))
+			&& is_a_in_str(str[i + 1], "scd") == true)
 			y += 1;
 		if (y == (int)ith)
 			return ((int)i);
