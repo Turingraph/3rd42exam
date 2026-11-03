@@ -1,5 +1,20 @@
 #include "get_next_line.h"
 
+/*
+2nd Mistake I made in 3rd Nov 2026
+
+```
+char	*get_all_line(...)
+...
+	read(fd, buff.arr, buffer_length);
+	concat_str_dynamic(&dst, buff.arr);
+	// buff.length is 0, so you will get only one line and forget every other lines.
+	if (buff.length < buffer_length)
+		is_loop = false;
+...
+```
+*/
+
 char	*get_all_line(int fd, size_t buffer_length)
 {
 	t_str_dynamic	buff;
@@ -27,9 +42,6 @@ char	*get_all_line(int fd, size_t buffer_length)
 		}
 		free(buff.arr);
 	}
-	// write(1, "*** ", 4);
-	// write(1, dst.arr, str_length(dst.arr));
-	// write(1, " ***\n", 5);
 	close(fd);
 	return (dst.arr);
 }

@@ -64,6 +64,22 @@ void	concat_str_dynamic(t_str_dynamic *dst, const char *src)
 	}
 }
 
+/*
+1st Mistake I made in 3rd Nov 2026
+
+```
+size_t	index_of_a(...)
+...
+	// This line is problematic because you will forget the '\n' for 
+	// the last output of get_next_line (in case the file end with '\n')
+	if (src[i] == a && (include_last == false || src[i + 1] == '\0))
+		return (i);
+	if (src[i] == a && include_last == true)
+		return (i + 1);
+...
+```
+*/
+
 size_t	index_of_a(char a, const char *src, bool include_last)
 {
 	size_t	i;
@@ -73,7 +89,7 @@ size_t	index_of_a(char a, const char *src, bool include_last)
 	i = 0;
 	while (src[i] != '\0')
 	{
-		if (src[i] == a && include_last == false)
+		if (src[i] == a && (include_last == false || src[i + 1] == '\0'))
 			return (i);
 		if (src[i] == a && include_last == true)
 			return (i + 1);

@@ -5,7 +5,7 @@ int	main(void)
 	char	*line;
 	int		fd;
 
-	fd = open("test/get_next_line/input/multiple_line_with_nl", 'r');
+	fd = open("test/get_next_line/input/alternate_line_nl_with_nl", 'r');
 	if (fd < -1)
 		return (1);
 	line = get_all_line(fd, BUFFER_SIZE);
