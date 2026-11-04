@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:10:01 by phsottat          #+#    #+#             */
-/*   Updated: 2026/11/04 18:00:09 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/11/04 18:33:12 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	write_n_int(const int *src, size_t length)
 {
 	size_t	i;
 
+	if (src == NULL || length == 0)
+		return ;
 	i = 0;
 	while (i < length)
 	{

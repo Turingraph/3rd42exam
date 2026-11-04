@@ -2,15 +2,17 @@ CC = cc -Wall -Wextra -Werror
 
 SRC_libft = $(wildcard libft/*.c)
 SRC_scanf = $(wildcard scanf/*.c)
+SRC_subset = $(wildcard subset/*.c)
 SRC_get_next_line = $(wildcard get_next_line/*.c)
 SRC_permutation = $(wildcard permutation/*.c)
 
 OBJ_libft = $(patsubst %.c, obj/%.o, $(SRC_libft))
 OBJ_scanf = $(patsubst %.c, obj/%.o, $(SRC_scanf)) $(OBJ_libft)
 OBJ_get_next_line = $(patsubst %.c, obj/%.o, $(SRC_get_next_line)) $(OBJ_libft)
+OBJ_subset = $(patsubst %.c, obj/%.o, $(SRC_subset)) $(OBJ_libft)
 OBJ_permutation = $(patsubst %.c, obj/%.o, $(SRC_permutation)) $(OBJ_libft)
 
-LIBRARY = $(patsubst %, lib/%.a, libft scanf get_next_line permutation)
+LIBRARY = $(patsubst %, lib/%.a, libft scanf get_next_line permutation subset)
 
 # https://stackoverflow.com/questions/9488256/use-directory-path-of-target-in-list-of-prerequisites-in-makefile
 # https://www.gnu.org/software/make/manual/make.html#Secondary-Expansion
