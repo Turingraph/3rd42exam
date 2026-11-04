@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/31 16:31:54 by phsottat          #+#    #+#             */
-/*   Updated: 2026/10/31 16:33:56 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/11/04 17:46:11 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,22 @@ bool	is_a_in_str(char a, const char *str)
 		return (false);
 	i = 0;
 	while (str[i] != '\0')
+	{
+		if (str[i] == a)
+			return (true);
+		i += 1;
+	}
+	return (false);
+}
+
+bool	is_a_in_int(int a, const int *str, size_t length)
+{
+	size_t	i;
+
+	if (str == NULL || length == 0)
+		return (false);
+	i = 0;
+	while (i < length)
 	{
 		if (str[i] == a)
 			return (true);

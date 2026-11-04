@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 14:32:57 by phsottat          #+#    #+#             */
-/*   Updated: 2026/11/04 14:41:34 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/11/04 15:21:05 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ bool	is_unique_str(const char *str)
 	return (true);
 }
 
-int	get_ith_char(const char *mark, const char *str,
-	size_t index)
+static int	get_ith_char(const char *mark, const char *str,
+	size_t index, size_t length)
 {
 	size_t	i;
 	int		y;
@@ -44,7 +44,7 @@ int	get_ith_char(const char *mark, const char *str,
 		return (-1);
 	y = -1;
 	i = 0;
-	while (str[i] != '\0')
+	while (i < length)
 	{
 		if (is_a_in_str(str[i], mark) == false)
 			y += 1;
@@ -61,18 +61,17 @@ void	write_permutations(const char *str, char *mark,
 	int		current_note;
 	size_t	i;
 
-	if (str == NULL || mark == NULL || index >= length)
+	if (str == NULL || mark == NULL || str[index] == '\0'
+		|| index >= length)
 	{
-		if (mark != NULL)
-		{
-			write(1, mark, str_length(mark));
-			write(1, "\n", 1);
-		}
+		write(1, str, length);
+		write(1, "\n", 1);
+		return ;
 	}
 	i = 0;
 	while (i < length - index)
 	{
-		current_note = get_ith_char(mark, str, i);
+		current_note = get_ith_char(mark, str, i, length);
 		if (current_note > -1)
 		{
 			mark[index] = str[current_note];

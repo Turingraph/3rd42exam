@@ -1,4 +1,4 @@
-Things to consider
+Things to consider for permutation
 1.  You have to have the heap for marking which char is already taking in the previous stack
 2.  get_ith_char return the index-th available character (with the helps of is_a_in_str(str[i ], mark)).
 3.  set and reset like this.
@@ -11,3 +11,7 @@ mark[index] = '\0';
 ```
 
 4.  Loop only length - index times, because when you enter the index-th depth recursion, you always have length - index availables option from str (string input) left.
+
+Things to consider for n queens
+1.  reuse write_permutation(str, mark, index, length) with create_intarr and set_intarr.
+2.  check_n_capture(src + i, length - i)

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/31 16:40:45 by phsottat          #+#    #+#             */
-/*   Updated: 2026/10/31 18:43:21 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/11/04 17:46:22 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ size_t	str_length(const char *str);
 void	write_strargs(size_t length, ...);
 void	set_str(char *dst, size_t length, char c);
 bool	is_a_in_str(char a, const char *str);
+bool	is_a_in_int(int a, const int *str, size_t length);
 
 #endif
